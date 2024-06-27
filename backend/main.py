@@ -1,10 +1,25 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 import crud, models, schemas, database
 from data import generate_ohlc_data
 from utils import calculate_ema
 
 app = FastAPI()
+
+# CORS 설정
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  # Vue.js 애플리케이션의 주소
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 models.Base.metadata.create_all(bind=database.engine)
 
