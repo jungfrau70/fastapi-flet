@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 import plotly.express as px
-from flet.plotly_chart import PlotlyChart
+
 
 # Function to fetch data from the backend
 def fetch_data():
@@ -25,3 +25,4 @@ def create_chart():
     df = pd.DataFrame(ohlc_data)
     fig = px.line(df, x="timestamp", y="close")
     return fig
+
